@@ -1,0 +1,4 @@
+[
+{"source":"John","target":"Sales","properties":[{"name":"type","value":"belongs_to"},{"name":"years","value":"3.5"}]},
+{"source":"Mary","target":"Sales","properties":[{"name":"type","value":"belongs_to"},{"name":"years","value":"2.0"}]}
+]

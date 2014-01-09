@@ -1,0 +1,57 @@
+<tool id="tab2rdf" name="Tab-to-RDF" version="0.1">
+  <description>Converter</description>
+  <command interpreter="python">
+    tab2rdf.py $input_file $output_file $output_format $namespace
+    #for $i in $triples
+      ${i.s_col} ${i.p_val} ${i.o_col} ${i.o_type}
+    #end for
+  </command>
+  <inputs>
+    <param name="input_file" type="data" format="tabular" label="Input File (tabular)"/>
+    <param name="namespace" type="text" size="50" value="http://localhost/" label="Namespace" />
+    <param name="output_format" type="select" label="Output Format">
+      <option value="ntriples">N-Triples</option>
+      <option value="turtle">Turtle</option>
+      <option value="rdfxml">RDF/XML</option>
+    </param>
+    <repeat name="triples" title="Triples">
+      <param name="s_col" type="data_column" data_ref="input_file" label="Subject (column)" />
+      <param name="p_val" type="text" size="50" value="a" label="Predicate (text)" />
+      <param name="o_col" type="data_column" data_ref="input_file" label="Object (column)" />
+      <param name="o_type" label="Check if this object is Literal (Keep unchecked if this object is URI)" type="boolean" truevalue="1" falsevalue="0" checked="False"/>
+    </repeat>
+  </inputs>
+  <outputs>
+    <data name="output_file" format="tabular" label="${tool.name} on ${on_string}"/>
+  </outputs>
+  <help>
+
+**What it does**
+
+Sample Input::
+
+    name     age  superviser
+    Micheal  42   John
+    Anne     30   Micheal
+
+Sample Parameters::
+
+    Namespace - 'http://localhost/'
+    Triple 1 - c1 'age' c2(literal)
+    Triple 2 - c3 'supervises' c1(URI)
+
+Sample Output::
+
+    &lt;http://localhost/Michael&gt; &lt;http://localhost/age&gt; "42"
+    &lt;http://localhost/Anne&gt; &lt;http://localhost/age&gt; "30"
+    &lt;http://localhost/John&gt; &lt;http://localhost/supervises&gt; &lt;http://localhost/Micheal&gt;
+    &lt;http://localhost/Micheal&gt; &lt;http://localhost/supervises&gt; &lt;http://localhost/Anne&gt;
+
+**Output Format**
+
+Output RDF format is N-Triples by default.
+
+Raptor's Rapper has to be installed to generate the output in Turtle or RDF/XML.
+
+  </help>
+</tool>

@@ -1,0 +1,33 @@
+<tool id="editheader" name="Edit Header" version="0.2">
+  <description></description>
+    <command interpreter="sh">
+      editheader.sh "$header" $input_file $output_file $replace
+    </command>
+  <inputs>
+    <param name="input_file" type="data" format="tabular" label="File (tabular)"/>
+    <param name="header" type="text" size='120' value="" label="Header line (tab-delimited)"> 
+      <sanitizer sanitize="False"/>
+    </param>
+    <param name="replace" type="boolean" truevalue="1" falsevalue="0" checked="False" label="Replace the first line" />
+ </inputs>
+  <outputs>
+    <data name="output_file" type="data" format="tabular" label="${tool.name} on ${on_string}"/>
+  </outputs>
+  <help>
+
+**Header line**
+
+Use '\\t' to input tab. Example:
+
+    col1\\tcol2\\tcol3
+
+Or, copy and paste tab-delimited text (from Excel, etc.)
+
+	col1	col2	col3
+
+**Replace the first line**
+
+Check to replace the first line of the original file (= typically, the old header line) with the new header line.
+
+  </help>
+</tool>

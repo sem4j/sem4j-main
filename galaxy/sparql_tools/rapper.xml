@@ -1,0 +1,31 @@
+<tool id="rapper" name="RDF Format" version="0.1">
+  <description>Converter (Rapper)</description>
+  <command>
+    /Users/Ryota/Softwares/raptor/raptor2-2.0.9/bin/rapper -q $input_file -i $input_format -o $output_format > $output_file
+  </command>
+  <inputs>
+    <param name="input_file" type="data" label="Input File"/>
+    <param name="input_format" type="select" label="Input Format">
+      <option value="ntriples">N-Triples</option>
+      <option value="turtle">Turtle</option>
+      <option value="rdfxml">RDF/XML</option>
+    </param>
+    <param name="output_format" type="select" label="Output Format">
+      <option value="ntriples">N-Triples</option>
+      <option value="turtle">Turtle</option>
+      <option value="rdfxml">RDF/XML</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data name="output_file" format="tabular" label="${tool.name} on ${on_string}"/>
+  </outputs>
+  <help>
+
+**What it does**
+
+This tool converts RDF format from/to N-Triples, Turtle, RDF/XML with Raptor's Rapper.
+
+To setup Rapper, please refer README.txt in this tool's directory.
+
+  </help>
+</tool>

@@ -1,0 +1,87 @@
+<tool id="tab2graph" name="Tab-to-Graph" version="0.1">
+  <description>Converter</description>
+  <command interpreter="python">
+    tab2graph.py -$h $input_file $output_file_n $output_file_r
+    '
+    #set $sep1 = ''
+    #for $i in $node
+      $sep1{"id":__${i.node_id}__, "properties":[
+      #set $sep2 = ''
+      #for $j in $i.property
+        #if $j.condition.column == "1"
+          $sep2{"name":"${j.prop_name}", "value":__${j.condition.prop_value}__}
+        #else
+          $sep2{"name":"${j.prop_name}", "value":"${j.condition.prop_value}"}
+        #end if
+      #set $sep2 = ', '
+      #end for
+      ]}
+    #set $sep1 = ', '
+    #end for
+    ' '
+    #set $sep1 = ''
+    #for $i in $relation
+      $sep1{"source":__${i.source_id}__, "target":__${i.target_id}__, "properties":[
+      #set $sep2 = ''
+      #for $j in $i.property
+        #if $j.condition.column == "1"
+          $sep2{"name":"${j.prop_name}", "value":__${j.condition.prop_value}__}
+        #else
+          $sep2{"name":"${j.prop_name}", "value":"${j.condition.prop_value}"}
+        #end if
+      #set $sep2 = ', '
+      #end for
+      ]}
+    #set $sep1 = ', '
+    #end for
+    '
+  </command>
+  <inputs>
+    <param name="input_file" type="data" format="tabular" label="Input File (tabular)"/>
+    <param name="h" label="Check to neglect the first row of the input." type="boolean" truevalue="h" falsevalue="" checked="False"/>
+    <repeat name="node" title="Node">
+      <param name="node_id" type="data_column" data_ref="input_file" label="Node ID Column" />
+      <repeat name="property" title="Property">
+        <param name="prop_name" type="text" size="50" value="" label="Name" />
+        <conditional name="condition">
+          <param name="column" type="select" label="Column or Text">
+            <option value="1">Column</option>
+            <option value="0">Text</option>
+          </param>
+          <when value="1">
+            <param name="prop_value" type="data_column" data_ref="input_file" label="Value" />
+          </when>
+          <when value="0">
+            <param name="prop_value" type="text" size="50" value="" label="Value" />
+          </when>
+        </conditional>
+      </repeat>
+    </repeat>
+    <repeat name="relation" title="Relation">
+      <param name="source_id" type="data_column" data_ref="input_file" label="Source Node ID Column" />
+      <param name="target_id" type="data_column" data_ref="input_file" label="Target Node ID Column" />
+      <repeat name="property" title="Property">
+        <param name="prop_name" type="text" size="50" value="" label="Name" />
+        <conditional name="condition">
+          <param name="column" type="select" label="Column or Text">
+            <option value="1">Column</option>
+            <option value="0">Text</option>
+          </param>
+          <when value="1">
+            <param name="prop_value" type="data_column" data_ref="input_file" label="Value" />
+          </when>
+          <when value="0">
+            <param name="prop_value" type="text" size="50" value="" label="Value" />
+          </when>
+        </conditional>
+      </repeat>
+    </repeat>
+  </inputs>
+  <outputs>
+    <data name="output_file_n" format="txt" label="${tool.name} on ${on_string} (node)"/>
+    <data name="output_file_r" format="txt" label="${tool.name} on ${on_string} (relation)"/>
+  </outputs>
+  <help>
+**What it does**
+  </help>
+</tool>

@@ -1,0 +1,80 @@
+<tool id="sqlite" name="SQL" version="0.4">
+  <description>Runner (SQLite)</description>
+  <command interpreter="python">
+    sqlite.py $output_file $explain_plan $header "$sql"
+    #for $i in $files
+      ${i.file} ${i.header} '${i.index}'
+    #end for
+  </command>
+  <inputs>
+    <repeat name="files" title="Table">
+      <param name="file" type="data" format="tabular" label="File (tabular)"/>
+      <param name="header" type="boolean" truevalue="1" falsevalue="0" checked="False" label="Use the first row as column names (If unchecked, use c1 c2 c3 ...)" />
+      <param name="index" type="text" size='20' value="" label="Index" />
+    </repeat>
+    <param name="header" type="boolean" truevalue="1" falsevalue="0" checked="False" label="Print column names in the first row" />
+    <param name="sql" type="text" area="true" size="10x50" label="SQL">
+      <sanitizer sanitize="False"/>
+    </param>
+    <param name="explain_plan" type="boolean" truevalue="1" falsevalue="0" checked="False" label="Explain SQL execution plan. (Ignore if you are not a developer)" />
+  </inputs>
+  <outputs>
+    <data name="output_file" format="tabular" label="${tool.name} on ${on_string}"/>
+  </outputs>
+  <help>
+
+**Tables**
+
+Select all table to be joined.
+
+----
+
+**Use the first line as column names**
+
+When the input file has column header::
+
+    id    name
+    101   John
+    102   Mary
+
+Check this box and use column names ('id' and 'name') to write queries:
+
+    SELECT * FROM t1 WHERE c2 = 'John';
+
+When the input file does not have column header::
+
+    101   John
+    102   Mary
+
+Uncheck this box and use c1, c2, c3, ... to write queries:
+
+    SELECT * FROM t1 WHERE name = 'John';
+
+----
+
+**Index**
+
+Comma-delimited list of column numbers.
+
+Example:
+
+    2,3
+
+This creates NOT a composite index BUT two different indices on column 2 and on column 3.
+
+----
+
+**Print column names in the first row**
+
+Example::
+
+    col1 col2 col3
+    aaaa bbbb cccc
+    aaaa dddd eeee
+
+----
+
+**SQL**
+
+  </help>
+</tool>

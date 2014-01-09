@@ -1,0 +1,4 @@
+[
+{"id":"John","properties":[{"name":"sex","value":"M"}]},{"id":"Sales","properties":[{"name":"tel","value":"55235"}]},
+{"id":"Mary","properties":[{"name":"sex","value":"F"}]},{"id":"Sales","properties":[{"name":"tel","value":"55235"}]}
+]

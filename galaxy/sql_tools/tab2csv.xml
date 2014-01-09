@@ -1,0 +1,26 @@
+<tool id="tab2csv" name="Tabular to CSV" version="0.2">
+  <description>converter</description>
+  <command interpreter="bash">
+    tab2csv.sh $input_file $output_file $dq
+  </command>
+  <inputs>
+    <param name="input_file" type="data" format="tabular" label="File (tabular)"/>
+    <param name="dq" type="boolean" truevalue="--double-quotation" falsevalue="" checked="False" label="Double quotation" />
+  </inputs>
+  <outputs>
+    <data name="output_file" format="csv" label="${tool.name} on ${on_string}"/>
+  </outputs>
+  <help>
+
+**Double quotation**
+
+If this is checked, output is like:
+
+    "aaa","bbb","ccc"
+
+Otherwise:
+
+    aaa,bbb,ccc
+
+  </help>
+</tool>

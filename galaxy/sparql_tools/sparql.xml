@@ -1,0 +1,36 @@
+<tool id="sparql" name="SPARQL" version="0.1">
+  <description>Runner (Jena ARQ)</description>
+  <command interpreter="python">
+    sparql.py "$query" $input_file $output_file
+  </command>
+  <inputs>
+    <param name="input_file" type="data" label="Input RDF Data"/>
+    <param name="query" type="text" area="True" size="10x50" label="SPARQL Query" value="SELECT * WHERE { ?s ?p ?o } LIMIT 10">
+      <sanitizer sanitize="False"/>
+    </param>
+  </inputs>
+  <outputs>
+    <data name="output_file" format="tabular" label="${tool.name} on ${on_string}"/>
+  </outputs>
+  <help>
+
+**What it does**
+
+This tool executes SPARQL query on a RDF file with Jena ARQ.
+
+To setup Jena ARQ, please refer README.txt in this tool's directory.
+
+**Input RDF DATA**
+
+Input RDF data has to be N-Triples format.
+
+To input multiple RDF files, concatenate tails to heads and merge them into one file.
+
+**SPARQL Tools**
+
+Example:
+
+SELECT * WHERE { ?s ?p ?o } LIMIT 10
+
+  </help>
+</tool>

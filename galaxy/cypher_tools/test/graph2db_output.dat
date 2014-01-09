@@ -1,0 +1,14 @@
+begin processing...
+"4 nodes"
+Error: get_node - No node found in this index
+Error: get_node - No node found in this index
+Error: get_node - No node found in this index
+Error: get_node - No node found in this index
+  3 nodes loaded
+  1 nodes skipped
+  2 relationships loaded
+  0 relationships skipped
+  3 properties loaded
+  1 properties skipped
+  0 properties warning
+done!
